@@ -1,18 +1,7 @@
 #ifndef MODE_SELECTOR_H
 #define MODE_SELECTOR_H
 
-#include <libusb-1.0/libusb.h>
 #include <stdint.h>
-
-typedef struct libusb_control_info
-{
-    libusb_device_handle *handle;
-    uint8_t bRequest;
-    uint16_t wValue;
-    uint16_t wIndex;
-    uint16_t wLength;
-    int timeout;
-} libusb_control_info;
 
 typedef struct mode_data
 {
@@ -21,8 +10,7 @@ typedef struct mode_data
 
 } mode_data;
 
-int mode_selecter(libusb_control_info *info, mode_data *modes);
-u_int8_t *apply_settings(mode_data *mode);
+u_int8_t *parse_mode_settings(char *mode, char *brightness, char *speed);
 
 // Declare the mode_data structs
 extern mode_data mode_on;
