@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
     // Supported args: --set-mode <mode_number> <brightness> <speed>, --set-key <key_name> <key_value>, -h
     if (argc < 2)
     {
-        printf("Usage: %s --set-mode <mode> <brightness> <speed> | --set-key <key> <value>\n", argv[0]);
+        printf("Usage: %s --set-mode <mode> <brightness> <speed> | --set-key <key_index> <key_value>\n", argv[0]);
         return 1;
     }
 
@@ -86,11 +86,22 @@ int main(int argc, char *argv[])
     {
         if (argc < 4)
         {
-            printf("Usage: %s --set-key <key_name> <key_value>\n", argv[0]);
+            printf("Usage: %s --set-key <key_index> <key_value>\n", argv[0]);
             return 1;
         }
         printf("Setting key to %s with value %s\n", argv[2], argv[3]);
-        // TODO: Add actual key setting logic here
+        populate_keycodes();
+        int key_index = atoi(argv[2]);
+        int key_value_hex = get_keycode(argv[3]);
+        key key_to_change = get_key_by_index(key_index);
+        if (key_value_hex == 0)
+        {
+            printf("Unknown key value: %s\n", argv[3]);
+            return 1;
+        }
+        printf("Key to change: %s (index %d), setting code to 0x%02X\n", key_to_change.key_value, key_index, key_value_hex);
+        key_to_change.key_code[key_to_change.key_value_ix] = key_value_hex;
+        control_transfer(&info, key_to_change.key_code);
     }
     else if (strcmp(argv[1], "-h") == 0)
     {
@@ -99,11 +110,6 @@ int main(int argc, char *argv[])
     else
     {
         printf("Unknown command: %s\n", argv[1]);
-        populate_keycodes();
-        int test_key_hex = get_keycode("ESC");
-        key key_to_change = get_key_by_index(0);
-        key_to_change.key_code[key_to_change.key_value_ix] = test_key_hex;
-        control_transfer(&info, key_to_change.key_code);
         return 1;
     }
 

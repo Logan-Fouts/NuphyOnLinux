@@ -12,15 +12,6 @@ void add_keycode(const char *name, unsigned short code)
     HASH_ADD_STR(keycodes, name, e);
 }
 
-unsigned short get_keycode(const char *name)
-{
-    keymap_entry *e;
-    HASH_FIND_STR(keycodes, name, e);
-    if (e)
-        return e->code;
-    return 0;
-}
-
 void add_char_keys()
 {
     // Letters
@@ -73,6 +64,28 @@ void add_char_keys()
     add_keycode(">", 0x37);
     add_keycode("/", 0x38);
     add_keycode("?", 0x38);
+
+    // TODO: media keys wont work yet
+    // Media keys
+    // add_keycode("MEDIA_PLAY_PAUSE", 0xCD);
+    // add_keycode("MEDIA_STOP", 0xE9);
+    // add_keycode("MEDIA_PREV_TRACK", 0xEA);
+    // add_keycode("MEDIA_NEXT_TRACK", 0xEB);
+    // add_keycode("MEDIA_EJECT", 0xEC);
+    // add_keycode("MEDIA_VOLUME_UP", 0xED);
+    // add_keycode("MEDIA_VOLUME_DOWN", 0xEE);
+    // add_keycode("MEDIA_MUTE", 0xEF);
+    // add_keycode("MEDIA_WWW", 0xF0);
+    // add_keycode("MEDIA_EMAIL", 0xF1);
+    // add_keycode("MEDIA_CALCULATOR", 0xF2);
+    // add_keycode("MEDIA_MY_COMPUTER", 0xF3);
+    // add_keycode("MEDIA_SEARCH", 0xF4);
+    // add_keycode("MEDIA_HOME", 0xF5);
+    // add_keycode("MEDIA_BACK", 0xF6);
+    // add_keycode("MEDIA_FORWARD", 0xF7);
+    // add_keycode("MEDIA_STOP_CD", 0xF8);
+    // add_keycode("MEDIA_REFRESH", 0xF9);
+    // add_keycode("MEDIA_FAVORITES", 0xFA);
 }
 
 // Add "friendly" names for special keys
@@ -125,4 +138,13 @@ void populate_keycodes()
 {
     add_char_keys();
     add_special_keys();
+}
+
+unsigned short get_keycode(const char *name)
+{
+    keymap_entry *e;
+    HASH_FIND_STR(keycodes, name, e);
+    if (e)
+        return e->code;
+    return 0;
 }
