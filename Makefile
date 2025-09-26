@@ -3,7 +3,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Iinclude
 
 # Source and object files
-SRC = src/main.c src/control_transfer.c src/keymap.c src/light_modes.c
+SRC = src/main.c src/control_transfer.c src/keymap.c src/light_modes.c src/keyboard.c
 OBJ = $(SRC:.c=.o)
 
 # Output binary

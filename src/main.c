@@ -14,6 +14,7 @@
 #include "control_transfer.h"
 #include "keymap.h"
 #include "light_modes.h"
+#include "keyboard.h"
 #define ACTION_CODE_LEN 1032
 
 const char *mode_names[] = {
@@ -99,7 +100,10 @@ int main(int argc, char *argv[])
     {
         printf("Unknown command: %s\n", argv[1]);
         populate_keycodes();
-        int w_hex = get_keycode("f");
+        int test_key_hex = get_keycode("ESC");
+        key key_to_change = get_key_by_index(0);
+        key_to_change.key_code[key_to_change.key_value_ix] = test_key_hex;
+        control_transfer(&info, key_to_change.key_code);
         return 1;
     }
 
