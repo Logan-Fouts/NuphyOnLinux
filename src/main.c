@@ -11,11 +11,9 @@
 #include <stdlib.h>
 #include <libusb-1.0/libusb.h>
 #include <string.h>
-#include "keymap.h"
 #include "control_transfer.h"
+#include "keymap.h"
 #include "light_modes.h"
-#define VENDOR_ID 0x05ac
-#define PRODUCT_ID 0x024f
 #define ACTION_CODE_LEN 1032
 
 const char *mode_names[] = {
@@ -42,38 +40,6 @@ const char *mode_names[] = {
     "game_mode",
     "off"};
 
-libusb_control_info initialize_libusb()
-{
-    struct libusb_control_info info = {
-        .handle = NULL,
-        .bRequest = 0x09,
-        .wValue = 0x0306,
-        .wIndex = 1,
-        .wLength = 1032,
-        .timeout = 3000};
-
-    if (libusb_init(NULL) < 0)
-    {
-        fprintf(stderr, "libusb init error\n");
-        return info;
-    }
-
-    info.handle = libusb_open_device_with_vid_pid(NULL, VENDOR_ID, PRODUCT_ID);
-    if (!info.handle)
-    {
-        fprintf(stderr, "Cannot open device\n");
-        libusb_exit(NULL);
-        exit(EXIT_FAILURE);
-    }
-
-    if (libusb_kernel_driver_active(info.handle, info.wIndex))
-        libusb_detach_kernel_driver(info.handle, info.wIndex);
-
-    libusb_claim_interface(info.handle, info.wIndex);
-
-    return info;
-}
-
 void print_modes()
 {
     printf("\nAvailable Animation Modes (use the index with --set-mode):\n");
@@ -99,6 +65,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
+    // Convert argv[1] to string and compare
     if (strcmp(argv[1], "--set-mode") == 0)
     {
         if (argc < 5)
@@ -131,6 +98,8 @@ int main(int argc, char *argv[])
     else
     {
         printf("Unknown command: %s\n", argv[1]);
+        populate_keycodes();
+        int w_hex = get_keycode("f");
         return 1;
     }
 

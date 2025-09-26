@@ -1,9 +1,15 @@
 #include <stdint.h>
+#include "uthash.h"
 
-typedef struct key_mapping
+typedef struct
 {
-    const char *name;
-    uint8_t hex;
-} key_mapping;
+    char name[32]; // key name, e.g. "w"
+    unsigned short code;
+    UT_hash_handle hh;
+} keymap_entry;
 
-key_mapping* get_keymap();
+void add_keycode(const char *name, unsigned short code);
+unsigned short get_keycode(const char *name);
+void add_char_keys();
+void add_special_keys();
+void populate_keycodes();
