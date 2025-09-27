@@ -1,6 +1,7 @@
 typedef struct libusb_control_info
 {
     libusb_device_handle *handle;
+    uint8_t bRequestType;
     uint8_t bRequest;
     uint16_t wValue;
     uint16_t wIndex;

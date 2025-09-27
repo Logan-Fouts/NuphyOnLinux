@@ -17,13 +17,13 @@ int control_transfer(libusb_control_info *info, u_int8_t *action_code)
 
     int transferred = libusb_control_transfer(
         info->handle,
-        0x21,
-        0x09,
-        0x0306,
+        info->bRequestType,
+        info->bRequest,
+        info->wValue,
         info->wIndex,
         action_code,
         info->wLength,
-        3000);
+        info->timeout);
 
     if (transferred < 0)
     {
@@ -38,6 +38,7 @@ libusb_control_info initialize_libusb()
 {
     struct libusb_control_info info = {
         .handle = NULL,
+        .bRequestType = 0x21,
         .bRequest = 0x09,
         .wValue = 0x0306,
         .wIndex = 1,
