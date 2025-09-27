@@ -14,6 +14,7 @@ A command-line utility for controlling lighting modes and key mappings on NuPhy 
 ./nuphy_linux --set-mode <mode_index> <brightness> <speed>
 ./nuphy_linux --set-key <key_name> <key_value>
 ```
+*The indexing is from left to right top to bottom*
 
 ### Arguments
 
@@ -23,16 +24,16 @@ A command-line utility for controlling lighting modes and key mappings on NuPhy 
   - `<brightness>`: 0-4 (0=lowest, 4=highest)
   - `<speed>`: 0-4 (0=slowest, 4=fastest)
 
-- `--set-key <key_name> <key_value>`  
+- `--set-key <key_index> <key_value>`  
   Sets the value for a specific key.  
-  - `<key_name>`: Name of the key to set
+  - `<key_index>`: Name of the key to set
   - `<key_value>`: Value to assign to that key
 
 ### Example
 
 ```
 ./nuphy_linux --set-mode 3 2 4
-./nuphy_linux --set-key ESC F1
+./nuphy_linux --set-key 2 F1
 ```
 
 ## Available Animation Modes

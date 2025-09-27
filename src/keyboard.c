@@ -103,7 +103,6 @@ struct key keymap[] = {
 int keymap_len = sizeof(keymap) / sizeof(keymap[0]);
 struct key get_key_by_index(int index)
 {
-    printf("keymap_len=%d\n", keymap_len);
     struct key empty = {0};
     if (index < 0 || index >= keymap_len)
         return empty;
