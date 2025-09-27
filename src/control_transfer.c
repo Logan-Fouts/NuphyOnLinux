@@ -14,7 +14,7 @@ int control_transfer(libusb_control_info *info, u_int8_t *action_code)
         fprintf(stderr, "Memory allocation failed\n");
         return 1;
     }
-
+    printf("Sending control transfer with action code: ");
     int transferred = libusb_control_transfer(
         info->handle,
         0x21,
