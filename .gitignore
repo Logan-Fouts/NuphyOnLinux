@@ -1,1 +1,42 @@
-settings.json
+# Build artifacts
+*.o
+*.out
+*.a
+*.so
+*.exe
+*.dll
+
+# Executables
+nuphy_linux
+*.elf
+
+# Dependency files
+*.d
+
+# Editor/IDE files
+*.swp
+*.swo
+*~
+.vscode/
+.settings/
+.idea/
+*.code-workspace
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Core dumps
+core
+core.*
+
+# Generated files
+tags
+*.map
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test output
+test-output/
